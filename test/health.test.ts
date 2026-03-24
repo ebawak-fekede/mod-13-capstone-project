@@ -1,13 +1,14 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
+
 import app from '../src/app.js';
 
 describe('GET /health', () => {
-  it('returns service status', async () => {
-    const response = await request(app).get('/health');
+    it('returns service status', async () => {
+        const response = await request(app).get('/health');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('status', 'ok');
-    expect(response.body).toHaveProperty('timestamp');
-  });
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('status', 'ok');
+        expect(response.body).toHaveProperty('timestamp');
+    });
 });

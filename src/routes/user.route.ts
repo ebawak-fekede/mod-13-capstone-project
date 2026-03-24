@@ -1,8 +1,18 @@
 import { Router } from 'express';
-import { getProfile, getCategories, createCategory, updateCategory, deleteCategory } from '../controllers/user.controller.js';
+
+import {
+    createCategory,
+    deleteCategory,
+    getCategories,
+    getProfile,
+    updateCategory,
+} from '../controllers/user.controller.js';
 import { authenticate } from '../middlewares/auth.middleware.js';
 import { validate } from '../middlewares/validator.middleware.js';
-import { createCategorySchema, updateCategorySchema } from '../schemas/task.schema.js';
+import {
+    createCategorySchema,
+    updateCategorySchema,
+} from '../schemas/task.schema.js';
 
 const router = Router();
 
