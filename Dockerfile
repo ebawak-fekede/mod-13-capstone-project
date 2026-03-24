@@ -1,21 +1,17 @@
-FROM node:24-alpine AS deps
+FROM node:24-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
+COPY prisma ./prisma
+COPY prisma.config.ts ./
 RUN npm ci
 
-FROM node:24-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
 RUN npm run db:generate
 RUN npm run build
 
-FROM node:24-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY package*.json ./
-COPY prisma ./prisma
-RUN npm ci --omit=dev && npm run db:generate
-COPY --from=builder /app/dist ./dist
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+
+CMD ["sh", "-c", "npm run db:migrate:deploy && node dist/server.js"]
