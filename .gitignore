@@ -25,3 +25,10 @@ pnpm-debug.log*
 
 # OS/editor
 .DS_Store
+.idea
+
+# E2E Test DB artifacts
+test/test.*.db
+test/test.*.db-journal
+test/.migrate.*.sql
+prisma/.schema.test.*.prisma

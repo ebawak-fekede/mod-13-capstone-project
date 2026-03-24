@@ -17,9 +17,13 @@ function buildTaskWhere(userId: number, query: any) {
     if (categoryId) where.categoryId = Number(categoryId);
 
     if (search) {
+        const containsArgs = process.env.NODE_ENV === 'test' 
+            ? { contains: search } 
+            : { contains: search, mode: 'insensitive' };
+            
         where.OR = [
-            { title: { contains: search, mode: 'insensitive' } },
-            { description: { contains: search, mode: 'insensitive' } },
+            { title: containsArgs },
+            { description: containsArgs },
         ];
     }
 

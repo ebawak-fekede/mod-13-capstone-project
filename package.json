@@ -39,6 +39,7 @@
         "zod": "^4.3.6"
     },
     "devDependencies": {
+        "@prisma/adapter-better-sqlite3": "^7.5.0",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@types/bcrypt": "^6.0.0",
         "@types/express": "^5.0.6",
@@ -46,6 +47,7 @@
         "@types/node": "^25.5.0",
         "@types/supertest": "^7.2.0",
         "@types/swagger-ui-express": "^4.1.8",
+        "better-sqlite3": "^12.8.0",
         "prettier": "^3.8.1",
         "supertest": "^7.2.2",
         "tsx": "^4.21.0",
