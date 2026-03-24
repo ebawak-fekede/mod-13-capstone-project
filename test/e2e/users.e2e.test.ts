@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { describe, expect, it, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import app from '../../src/app.js';
 import prisma from '../../src/lib/prisma.js';
@@ -101,7 +101,9 @@ describe('Users & Categories Endpoints E2E', () => {
             expect(res.body.name).toBe('Hobbies');
 
             // Verify in DB
-            const dbCat = await prisma.category.findUnique({ where: { id: category.id } });
+            const dbCat = await prisma.category.findUnique({
+                where: { id: category.id },
+            });
             expect(dbCat?.name).toBe('Hobbies');
         });
 
@@ -128,7 +130,9 @@ describe('Users & Categories Endpoints E2E', () => {
             expect(res.status).toBe(204);
 
             // DB check
-            const dbCat = await prisma.category.findUnique({ where: { id: category.id } });
+            const dbCat = await prisma.category.findUnique({
+                where: { id: category.id },
+            });
             expect(dbCat).toBeNull();
         });
 

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { describe, expect, it, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import app from '../../src/app.js';
 import prisma from '../../src/lib/prisma.js';
@@ -105,26 +105,32 @@ describe('Tasks Endpoints E2E', () => {
             const resPage = await request(app)
                 .get('/tasks?page=1&limit=2')
                 .set('Authorization', `Bearer ${token}`);
-            
+
             expect(resPage.status).toBe(200);
             expect(resPage.body.data).toHaveLength(2);
             expect(resPage.body.pagination.total).toBeGreaterThanOrEqual(3);
-            expect(resPage.body.pagination.totalPages).toBeGreaterThanOrEqual(2);
+            expect(resPage.body.pagination.totalPages).toBeGreaterThanOrEqual(
+                2,
+            );
 
             // 2. Status filter check
             const resFilter = await request(app)
                 .get('/tasks?status=IN_PROGRESS')
                 .set('Authorization', `Bearer ${token}`);
-            
+
             expect(resFilter.status).toBe(200);
-            expect(resFilter.body.data.every((t: any) => t.status === 'IN_PROGRESS')).toBe(true);
+            expect(
+                resFilter.body.data.every(
+                    (t: any) => t.status === 'IN_PROGRESS',
+                ),
+            ).toBe(true);
             expect(resFilter.body.data.length).toBeGreaterThanOrEqual(1);
 
             // 3. Search check
             const resSearch = await request(app)
                 .get('/tasks?search=Task 3')
                 .set('Authorization', `Bearer ${token}`);
-                
+
             expect(resSearch.status).toBe(200);
             expect(resSearch.body.data[0].title).toBe('Task 3');
         });
@@ -174,7 +180,9 @@ describe('Tasks Endpoints E2E', () => {
             expect(res.body.status).toBe('COMPLETED');
 
             // Verify DB implicitly updated
-            const dbTask = await prisma.task.findUnique({ where: { id: task.id } });
+            const dbTask = await prisma.task.findUnique({
+                where: { id: task.id },
+            });
             expect(dbTask?.status).toBe('COMPLETED');
         });
 
@@ -199,9 +207,11 @@ describe('Tasks Endpoints E2E', () => {
                 .set('Authorization', `Bearer ${token}`);
 
             expect(res.status).toBe(204);
-            
+
             // Verify deleted from DB
-            const dbTask = await prisma.task.findUnique({ where: { id: task.id } });
+            const dbTask = await prisma.task.findUnique({
+                where: { id: task.id },
+            });
             expect(dbTask).toBeNull();
         });
 

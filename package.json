@@ -13,6 +13,7 @@
         "dev": "tsx watch src/server.ts",
         "build": "tsc",
         "start": "node dist/server.js",
+        "pretest": "node test/prepare-sqlite.js && npx prisma generate --schema=prisma/.schema.test.prisma",
         "test": "vitest run",
         "test:watch": "vitest",
         "format": "prettier . --write",

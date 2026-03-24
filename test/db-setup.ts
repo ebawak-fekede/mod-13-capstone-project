@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { readFileSync, writeFileSync, unlinkSync, existsSync } from 'fs';
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { afterAll, afterEach, beforeAll } from 'vitest';
 
